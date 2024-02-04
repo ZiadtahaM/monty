@@ -1,0 +1,51 @@
+#include "monty.h"
+
+/**
+ * push - Pushes an element to the stack.
+ * @stack: Pointer to a pointer pointing to the top node of the stack.
+ * @line_number: Integer representing the line number of the opcode.
+ * @value: The value to be pushed onto the stack.
+ */
+void push(stack_t **stack, unsigned int line_number, int value)
+{
+    stack_t *new_node;
+
+    new_node = malloc(sizeof(stack_t));
+    if (new_node == NULL)
+        string_err(4, line_number);
+
+    new_node->n = value;
+    new_node->prev = NULL;
+
+    if (*stack != NULL)
+    {
+        new_node->next = *stack;
+        (*stack)->prev = new_node;
+    }
+    else
+    {
+        new_node->next = NULL;
+    }
+
+    *stack = new_node;
+}
+
+/**
+ * pall - Prints all the values on the stack, starting from the top.
+ * @stack: Pointer to the top node of the stack.
+ * @line_number: Integer representing the line number of the opcode.
+ */
+void pall(stack_t *stack, unsigned int line_number)
+{
+    stack_t *current = stack;
+
+    (void)line_number;
+
+    while (current != NULL)
+    {
+        printf("%d\n", current->n);
+        current = current->next;
+    }
+}
+
+
